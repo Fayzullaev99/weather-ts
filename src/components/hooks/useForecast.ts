@@ -9,10 +9,8 @@ function useForecast() {
   const getSearchOptions = (value: string) => {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${process.env.REACT_APP_API_KEY}`)
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        setOptions(data)
-      })
+      .then((data) =>setOptions(data))
+      .catch(e => console.log(e))
   }
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
@@ -20,9 +18,15 @@ function useForecast() {
     getSearchOptions(value)
   }
   const getForecast = (city: optionType) => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
       .then((res) => res.json())
-      .then((data) => setForecast(data))
+      .then((data) => {
+        const forecastData = {
+            ...data.city,
+            list:data.list.slice(0,10) 
+        }
+        setForecast(forecastData)
+      }).catch(e => console.log(e))
 
   }
   const onSubmit = () => {

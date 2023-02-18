@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react"
 import { optionType } from "../types"
+import Header from "./Header"
 type Props = {
     term:string,
     options:[],
@@ -9,10 +10,8 @@ type Props = {
 }
 const Search = ({term,options,onInputChange,onOptionSelect,onSubmit}:Props): JSX.Element => {
   return (
-    <main className="flex justify-center items-center bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-full">
       <section className="w-full md:max-w-[500px] h-full lg:h-[500px] p-4 md:px-10 lg:p-24 flex flex-col text-center items-center justify-center text-zinc-700 bg-white bg-opacity-20 backdrop-blur-lg drop-shadow-lg">
-        <h1 className="text-4xl font-thin">Weather <span className="font-black">Forecast</span></h1>
-        <p className="text-sm mt-2">Enter below a place you want to know the weather of and select an option from the dropdown</p>
+        <Header />
         <div className="flex mt-10 md:mt-4 relative">
           <input 
             type="text" 
@@ -34,7 +33,6 @@ const Search = ({term,options,onInputChange,onOptionSelect,onSubmit}:Props): JSX
             onClick={onSubmit}>search</button>
         </div>
       </section>
-    </main>
   )
 }
 
